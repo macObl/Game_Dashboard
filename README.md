@@ -30,7 +30,7 @@ The Game Price vs Game Deal Dashboard is a web application built using NODE.JS, 
 
 3. **Run the Application:**
    ```sh
-   npm start
+   node app.js
    ```
 
 4. **Access the Dashboard:**
