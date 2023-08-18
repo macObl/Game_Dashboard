@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/stylesheets/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/f16cdcf600.js" crossorigin="anonymous"></script>
+  <title>Games Dash</title>
+</head>
+
+<body>
+
+  <div class="disc">
+    <a href="#demo-modal">Disclaimer</a>
+  </div>
+
+  <div id="demo-modal" class="modal">
+    <div class="modal__content">
+        <h1>Disclaimer</h1>
+
+        <p>
+          The data shown in this dashboard was web scraped from the following website 
+          <a href="https://gg.deals/" target="_blank">GG DEALS</a>. Total game prices and deals can vary as this data was gathered 
+          between May and June of 2023.
+        </p>
+
+        <a href="#" class="modal__close"><i class="fa-solid fa-xmark"></i></a>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="row1">
+      <div class="polarArea">
+        <canvas id="polarArea"></canvas>
+      </div>
+      
+      <div class="bar">
+        <canvas id="bar"></canvas>
+      </div>
+    
+      <div class="cards">
+        <div class="card">
+          <div class="cardName">Total Number of Games</div>
+          <div class="numbers"><%= total %></div>
+        </div>
+        <div class="card">
+          <div class="cardName">Total Number of Free Games</div>
+          <div class="numbers"><%= total_free %></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row2">
+      <div class="line">
+        <canvas id="line"></canvas>
+      </div>
+    </div>
+
+    <div class="row3">
+      <div class="table-div">
+        <h2 class="table-header">Top 5 Genre Games</h2>
+        <div class="warpper">
+          <input class="radio" id="one" name="group" type="radio" checked>
+          <input class="radio" id="two" name="group" type="radio">
+          <input class="radio" id="three" name="group" type="radio">
+          <div class="tabs">
+          <label class="tab" id="one-tab" for="one">Indie</label>
+          <label class="tab" id="two-tab" for="two">Action</label>
+          <label class="tab" id="three-tab" for="three">Adventure</label>
+            </div>
+          <div class="panels">
+          <div class="panel" id="one-panel">
+            <table class="top5-table">
+              <tr>
+                <th>Game Title</th>
+                <th>Game Price / Deal</th>
+              </tr>
+              <tr>
+                <td><%= t_indie[0].T %></td>
+                <td class="pri-d">$<%= t_indie[0].P %> / $<%= t_indie[0].GD %></td>
+              </tr>
+              <tr>
+                <td><%= t_indie[1].T %></td>
+                <td class="pri-d">$<%= t_indie[1].P %> / $<%= t_indie[1].GD %></td>
+              </tr>
+              <tr>
+                <td><%= t_indie[2].T %></td>
+                <td class="pri-d">$<%= t_indie[2].P %> / $<%= t_indie[2].GD %></td>
+              </tr>
+              <tr>
+                <td><%= t_indie[3].T %></td>
+                <td class="pri-d">$<%= t_indie[3].P %> / $<%= t_indie[3].GD %></td>
+              </tr>
+              <tr>
+                <td><%= t_indie[4].T %></td>
+                <td class="pri-d">$<%= t_indie[4].P %> / $<%= t_indie[4].GD %></td>
+              </tr>
+            </table>
+          </div>
+          <div class="panel" id="two-panel">
+            <table class="top5-table">
+              <tr>
+                <th>Game Title</th>
+                <th>Game Price / Deal</th>
+              </tr>
+              <tr>
+                <td><%= t_action[0].T %></td>
+                <td class="pri-d">$<%= t_action[0].P %> / $<%= t_action[0].GD %></td>
+              </tr>
+              <tr>
+                <td><%= t_action[1].T %></td>
+                <td class="pri-d">$<%= t_action[1].P %> / $<%= t_action[1].GD %></td>
+              </tr>
+              <tr>
+                <td><%= t_action[2].T %></td>
+                <td class="pri-d">$<%= t_action[2].P %> / $<%= t_action[2].GD %></td>
+              </tr>
+              <tr>
+                <td><%= t_action[3].T %></td>
+                <td class="pri-d">$<%= t_action[3].P %> / $<%= t_action[3].GD %></td>
+              </tr>
+              <tr>
+                <td><%= t_action[4].T %></td>
+                <td class="pri-d">$<%= t_action[4].P %> / $<%= t_action[4].GD %></td>
+              </tr>
+            </table>
+          </div>
+          <div class="panel" id="three-panel">
+            <table class="top5-table">
+              <tr>
+                <th>Game Title</th>
+                <th>Game Price / Deal</th>
+              </tr>
+              <tr>
+                <td><%= t_adventure[0].T %></td>
+                <td class="pri-d">$<%= t_adventure[0].P %> / $<%= t_adventure[0].GD %></td>
+              </tr>
+              <tr>
+                <td><%= t_adventure[1].T %></td>
+                <td class="pri-d">$<%= t_adventure[1].P %> / $<%= t_adventure[1].GD %></td>
+              </tr>
+              <tr>
+                <td><%= t_adventure[2].T %></td>
+                <td class="pri-d">$<%= t_adventure[2].P %> / $<%= t_adventure[2].GD %></td>
+              </tr>
+              <tr>
+                <td><%= t_adventure[3].T %></td>
+                <td class="pri-d">$<%= t_adventure[3].P %> / $<%= t_adventure[3].GD %></td>
+              </tr>
+              <tr>
+                <td><%= t_adventure[4].T %></td>
+                <td class="pri-d">$<%= t_adventure[4].P %> / $<%= t_adventure[4].GD %></td>
+              </tr>
+            </table>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scrollbar" id="style-1">
+        <div class="force-overflow"></div>
+      </div>
+
+      <div class="table-div">
+        <h2 class="table-header">Top PvP Games</h2>
+        <div class="tableFixHead" id="style-1">
+          <table id="asc">
+            <thead>
+              <tr>
+                  <th>Title</th><th class="thPrice" onclick="asds_btn()">Price  <i class="fa-solid fa-sort-up"></i></th>
+              </tr>
+            </thead>
+              <% for (var i = 0; i < pvp1.length; i++) { %>
+                <tr>
+                  <td><%= pvp1[i].T %></td>
+                  <td class="p-table">$<%= pvp1[i].P %></td>
+                </tr>    
+               <% } %>
+         </table>
+         <table id="desc" style="display: none">
+              <thead>
+                <tr>
+                    <th>Title</th><th class="thPrice" onclick="asds_btn()">Price  <i class="fa-solid fa-sort-down"></i></th>
+                </tr>
+              </thead>
+                <% for (var i = 0; i < pvp2.length; i++) { %>
+                  <tr>
+                    <td><%= pvp2[i].T %></td>
+                    <td class="p-table">$<%= pvp2[i].P %></td>
+                  </tr>    
+                <% } %>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+
+  <% var PA_Casual = 0; %>
+  <% var PA_Strategy = 0; %>
+  <% var PA_Adventure = 0; %>
+  <% var PA_Indie = 0; %>
+  <% var PA_Action = 0; %>
+  
+  <% hbarMpData = { maxP: 0, maxGD: 0 } %>
+  <% hbarSpData = { maxP: 0, maxGD: 0 } %>
+  <% hbarStraData = { maxP: 0, maxGD: 0 } %>
+  <% hbarFcData = { maxP: 0, maxGD: 0 } %>
+  <% hbarMmoData = { maxP: 0, maxGD: 0 } %>
+
+  <% line_75 = { avgP: 0, avgGD: 0 } %>
+  <% line_76 = { avgP: 0, avgGD: 0 } %>
+  <% line_77 = { avgP: 0, avgGD: 0 } %>
+  <% line_78 = { avgP: 0, avgGD: 0 } %>
+  <% line_79 = { avgP: 0, avgGD: 0 } %>
+  <% line_80 = { avgP: 0, avgGD: 0 } %>
+  <% line_81 = { avgP: 0, avgGD: 0 } %>
+  <% line_82 = { avgP: 0, avgGD: 0 } %>
+  <% line_83 = { avgP: 0, avgGD: 0 } %>
+  <% line_84 = { avgP: 0, avgGD: 0 } %>
+  <% line_85 = { avgP: 0, avgGD: 0 } %>
+  <% line_86 = { avgP: 0, avgGD: 0 } %>
+  <% line_87 = { avgP: 0, avgGD: 0 } %>
+  <% line_88 = { avgP: 0, avgGD: 0 } %>
+  <% line_89 = { avgP: 0, avgGD: 0 } %>
+  <% line_90_plus = { avgP: 0, avgGD: 0 } %>
+  
+  
+
+  <%pa_casual.forEach(function(item){
+    PA_Casual+=item.avg_val;
+  }) %>
+  <%pa_strategy.forEach(function(item){
+    PA_Strategy+=item.avg_val;
+  }) %>
+  <%pa_adventure.forEach(function(item){
+    PA_Adventure+=item.avg_val;
+  }) %>
+  <%pa_indie.forEach(function(item){
+    PA_Indie+=item.avg_val;
+  }) %>
+  <%pa_action.forEach(function(item){
+    PA_Action+=item.avg_val;
+ }) %>
+
+  <%hbar_mp.forEach(function(item){
+    hbarMpData.maxP+=item.maxP;
+    hbarMpData.maxGD+=item.maxGD;
+  }) %>
+  <%hbar_sp.forEach(function(item){
+    hbarSpData.maxP+=item.maxP;
+    hbarSpData.maxGD+=item.maxGD;
+  }) %>
+  <%hbar_stra.forEach(function(item){
+    hbarStraData.maxP+=item.maxP;
+    hbarStraData.maxGD+=item.maxGD;
+  }) %>
+  <%hbar_fc.forEach(function(item){
+    hbarFcData.maxP+=item.maxP;
+    hbarFcData.maxGD+=item.maxGD;
+  }) %>
+  <%hbar_mmo.forEach(function(item){
+    hbarMmoData.maxP+=item.maxP;
+    hbarMmoData.maxGD+=item.maxGD;
+  }) %>
+
+  <%l_75.forEach(function(item){
+    line_75.avgP+=item.avgP;
+    line_75.avgGD+=item.avgGD;
+  }) %>
+  <%l_76.forEach(function(item){
+    line_76.avgP+=item.avgP;
+    line_76.avgGD+=item.avgGD;
+  }) %>
+  <%l_77.forEach(function(item){
+    line_77.avgP+=item.avgP;
+    line_77.avgGD+=item.avgGD;
+  }) %>
+  <%l_78.forEach(function(item){
+    line_78.avgP+=item.avgP;
+    line_78.avgGD+=item.avgGD;
+  }) %>
+  <%l_79.forEach(function(item){
+    line_79.avgP+=item.avgP;
+    line_79.avgGD+=item.avgGD;
+  }) %>
+  <%l_80.forEach(function(item){
+    line_80.avgP+=item.avgP;
+    line_80.avgGD+=item.avgGD;
+  }) %>
+  <%l_81.forEach(function(item){
+    line_81.avgP+=item.avgP;
+    line_81.avgGD+=item.avgGD;
+  }) %>
+  <%l_82.forEach(function(item){
+    line_82.avgP+=item.avgP;
+    line_82.avgGD+=item.avgGD;
+  }) %>
+  <%l_83.forEach(function(item){
+    line_83.avgP+=item.avgP;
+    line_83.avgGD+=item.avgGD;
+  }) %>
+  <%l_84.forEach(function(item){
+    line_84.avgP+=item.avgP;
+    line_84.avgGD+=item.avgGD;
+  }) %>
+  <%l_85.forEach(function(item){
+    line_85.avgP+=item.avgP;
+    line_85.avgGD+=item.avgGD;
+  }) %>
+  <%l_86.forEach(function(item){
+    line_86.avgP+=item.avgP;
+    line_86.avgGD+=item.avgGD;
+  }) %>
+  <%l_87.forEach(function(item){
+    line_87.avgP+=item.avgP;
+    line_87.avgGD+=item.avgGD;
+  }) %>
+  <%l_88.forEach(function(item){
+    line_88.avgP+=item.avgP;
+    line_88.avgGD+=item.avgGD;
+  }) %>
+  <%l_89.forEach(function(item){
+    line_89.avgP+=item.avgP;
+    line_89.avgGD+=item.avgGD;
+  }) %>
+  <%l_90_p.forEach(function(item){
+    line_90_plus.avgP+=item.avgP;
+    line_90_plus.avgGD+=item.avgGD;
+  }) %>
+  
+
+
+  
+  <script>
+    let pa_Chart = document.getElementById('polarArea');
+    let paChart = new Chart(pa_Chart, {
+      type: 'polarArea',
+      data:{
+        labels: ['Action', 'Casual', 'Strategy', 'Adventure', 'Indie'],
+        datasets:[{
+          label: 'Price',
+          data: [
+            '<%= PA_Action %>', 
+            '<%= PA_Casual %>', 
+            '<%= PA_Strategy %>',
+            '<%= PA_Adventure %>',
+            '<%= PA_Indie %>' 
+            ],
+          borderColor: 'rgba(0,0,0,0)',
+          backgroundColor: [
+          'rgb(255, 89, 89, 0.8)',
+          'rgb(75, 192, 192, 0.7)',
+          'rgb(255, 205, 86, 0.7)',
+          'rgba(87, 153, 77, 0.7)',
+          'rgb(54, 162, 235, 0.7)'
+          ]
+        }]
+      },
+      options: {
+          plugins: {
+              title: {
+                  display: true,
+                  text: 'Game Genres Average Price',
+                  color: 'rgba(227, 227, 227, 0.8)',
+                  font: {
+                        size: 18
+                    }
+              }
+          }
+      }
+    }); 
+
+    let bar_Chart = document.getElementById('bar');
+    let barChart = new Chart(bar_Chart, {
+      type: 'bar',
+      data:{
+        labels: ['Multi-Player', 'Single-Player', 'Strategy', 'PvP', 'MMO'],
+        datasets:[{
+          label: 'Game Price',
+          data: [
+            '<%= hbarMpData.maxP %>',
+            '<%= hbarSpData.maxP %>',
+            '<%= hbarStraData.maxP %>',
+            '<%= hbarFcData.maxP %>',
+            '<%= hbarMmoData.maxP %>',
+            ],
+          backgroundColor: [
+          'rgb(255, 89, 89, 0.8)'
+          ]
+        },
+        {
+          label: 'Deal Price',
+          data: [
+            '<%= hbarMpData.maxGD %>',
+            '<%= hbarSpData.maxGD %>',
+            '<%= hbarStraData.maxGD %>',
+            '<%= hbarFcData.maxGD %>',
+            '<%= hbarMmoData.maxGD %>',
+            ],
+          backgroundColor: [
+          'rgb(75, 192, 192, 0.8)',
+          ]
+        }]
+      },
+      options:{
+        esponsive: true,
+        maintainAspectRatio: false,
+        tension: 0.4,
+        plugins: {
+              title: {
+                  display: true,
+                  text: 'Game Feature Max Price VS Max Deal',
+                  color: 'rgba(227, 227, 227, 0.8)',
+                  font: {
+                        size: 18
+                    }
+              }
+          },
+        scales: {
+          y: {
+            title: {
+              display: true,
+              text: 'Price',
+              color: 'rgba(227, 227, 227, 0.8)'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Features',
+              color: 'rgba(227, 227, 227, 0.8)'
+            }
+          },
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              }
+            },
+          ],
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+                drawBorder: false,
+              },
+            },
+          ],
+        },
+      }
+    });
+
+    let line_chart = document.getElementById('line');
+    let lineChart = new Chart(line_chart, {
+      type: 'line',
+      data:{
+        labels: [
+          '75',
+          '76',
+          '77',
+          '78',
+          '79',
+          '80',
+          '81',
+          '82',
+          '83',
+          '84',
+          '85',
+          '86',
+          '87',
+          '88',
+          '89',
+          '90+'
+          
+        ],
+        datasets:[
+        {
+          label: 'Average Deal Price',
+          data: [
+            '<%= line_75.avgGD %>',
+            '<%= line_76.avgGD %>',
+            '<%= line_77.avgGD %>',
+            '<%= line_78.avgGD %>',
+            '<%= line_79.avgGD %>',
+            '<%= line_80.avgGD %>',
+            '<%= line_81.avgGD %>',
+            '<%= line_82.avgGD %>',
+            '<%= line_83.avgGD %>',
+            '<%= line_84.avgGD %>',
+            '<%= line_85.avgGD %>',
+            '<%= line_86.avgGD %>',
+            '<%= line_87.avgGD %>',
+            '<%= line_88.avgGD %>',
+            '<%= line_89.avgGD %>',
+            '<%= line_90_plus.avgGD %>',
+            ],
+          backgroundColor: ['rgb(75, 192, 192, 0.8)'],
+          borderColor: 'rgb(20, 192, 192)',
+          borderWidth: 2,
+          fill: true
+        },
+        {
+          label: 'Average Game Price',
+          data: [
+            '<%= line_75.avgP %>',
+            '<%= line_76.avgP %>',
+            '<%= line_77.avgP %>',
+            '<%= line_78.avgP %>',
+            '<%= line_79.avgP %>',
+            '<%= line_80.avgP %>',
+            '<%= line_81.avgP %>',
+            '<%= line_82.avgP %>',
+            '<%= line_83.avgP %>',
+            '<%= line_84.avgP %>',
+            '<%= line_85.avgP %>',
+            '<%= line_86.avgP %>',
+            '<%= line_87.avgP %>',
+            '<%= line_88.avgP %>',
+            '<%= line_89.avgP %>',
+            '<%= line_90_plus.avgP %>',
+            ],
+          backgroundColor: ['rgb(255, 89, 89, 0.8)'],
+          borderColor: 'rgb(255, 65, 65)',
+          borderWidth: 2,
+          fill: true
+        },
+      ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        tension: 0.4,
+        plugins: {
+              title: {
+                  display: true,
+                  text: 'Metacritic Scores Average Game Deal & Price',
+                  color: 'rgba(227, 227, 227, 0.8)',
+                  font: {
+                        size: 18
+                    }
+              }
+          },
+        scales: {
+          y: {
+            title: {
+              display: true,
+              text: 'Average Price',
+              color: 'rgba(227, 227, 227, 0.8)'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Metacritic Score',
+              color: 'rgba(227, 227, 227, 0.8)'
+            }
+          },
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+          xAxes: [
+            {
+              gridLines: {
+                // Remove vertical lines
+                display: false,
+                drawBorder: false,
+              },
+            },
+          ],
+        },
+      }
+    });
+
+
+    function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+
+  function asds_btn(){
+    var as = document.getElementById("asc");
+    var ds = document.getElementById("desc");
+    if(as.style.display === "none") {
+      as.style.display = "block";
+      ds.style.display = "none";
+    }
+    else{
+      as.style.display = "none";
+      ds.style.display = "block";
+    }
+  }
+
+  </script>
+</body>
+<div class="footer">
+  <div class="icons">
+    <a target="_blank" rel="noopener" href="https://github.com/macObl" class="anchor">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a target="_blank" rel="noopener" href="https://www.google.com" class="anchor">
+      <i class="fa-solid fa-house"></i>
+    </a>
+  </div>
+</div>
+</html>
