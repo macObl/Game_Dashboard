@@ -1,5 +1,10 @@
 # Game Price vs Game Deal Dashboard
 
+## ATTENTION
+This repository does not house the node_modules folder, if cloned be sure to follow Twilios instructions to get set up with Node.JS
+[Twilio Docs](https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-node-js-and-express-development-environment)
+
+
 ## Introduction
 
 The Game Price vs Game Deal Dashboard is a web application built using NODE.JS, EJS (Embedded JavaScript), and CSS. This dashboard allows users to compare the original prices of games with their current deal prices, helping gamers find the best deals available for their favorite games.
