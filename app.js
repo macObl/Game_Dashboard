@@ -97,11 +97,13 @@ app.get("/", async (req, res) => {
     });
 });
 
+const PORT = process.env.PORT || 8000;
+
 const start = async() => {
     try{
         await mongoose.connect(uri);
 
-        app.listen(8000, () => {
+        app.listen(PORT, () => {
             console.log('App Listening on port 8000');
         });
     } catch(e){
